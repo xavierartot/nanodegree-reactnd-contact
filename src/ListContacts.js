@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class ListContacts extends Component {
-  // types inside a class, e.g: replace this.propTypes by static propTypes
+  // types inside a class, e.g: replace "this.propTypes" by "static propTypes"
   static propTypes = {
     contacts: PropTypes.array.isRequired,
     onDeleteContact: PropTypes.func.isRequired,
@@ -17,21 +17,31 @@ export default class ListContacts extends Component {
     }));
   }
   render() {
+    //destructure
+    const {contacts, onDeleteContact} = this.props;
+    const {query} = this.state;
+
+    //if query it's an empty string
+    //then we show contacts the as the original contact
+    const showingContacts = query === '' ? contacts
+      : contacts.filter( (c) => (
+        c.name.toLowerCase().includes(query.toLowerCase())
+      ));
+
     return (
       <div className="list-contacts">
-        {JSON.stringify(this.state)}
         <div className="list-contacts-top">
           <input
             className="search-contacts"
             type="text"
             placeholder="search contacts"
-            value={this.state.query}
+            value={query}
             onChange={event => this.updateQuery(event.target.value)}
           />
         </div>
         <ol className="contact-list">
           {
-          this.props.contacts.map(element =>
+          showingContacts.map(element =>
           (
             <li key={element.id} className="contact-list-item">
               <div
@@ -48,7 +58,7 @@ export default class ListContacts extends Component {
               </div>
               <button
                 className="contact-remove"
-                onClick={() => this.props.onDeleteContact(element)}
+                onClick={() => onDeleteContact(element)}
               >remove
               </button>
             </li>
