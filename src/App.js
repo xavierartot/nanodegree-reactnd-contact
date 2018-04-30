@@ -3,9 +3,7 @@ import ListContacts from './ListContacts';
 
 
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  state = {
     contacts: [
       {
         id: 'karen',
@@ -26,11 +24,11 @@ export default class App extends Component {
         avatarURL: 'http://localhost:5001/tyler.jpg',
       },
     ],
-    };
-    this.removeContact = this.removeContact.bind(this);
+    totoVar: 0,
   }
 
    removeContact = (contact) => {
+     console.log(1);
      // where the id is not equal to id clicked
      this.setState(currentState => ({
        // loop through the contacts array, then each id of the state
