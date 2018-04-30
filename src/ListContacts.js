@@ -10,9 +10,10 @@ export default class ListContacts extends Component {
   state = {
     query: '',
   }
-  updateQuery = (query) => {
-    this.setState(() => ({
-      query: query.trim(),
+  updateQuery = (e) => {
+    console.log(e);
+    this.setState(() => ({ // after the call of setState() ListContacts re-render is methods render()
+      query: e.trim(),
     }));
   }
   render() {

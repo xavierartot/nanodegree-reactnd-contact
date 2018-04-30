@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ListContacts from './ListContacts';
 
-
 export default class App extends Component {
   state = {
     contacts: [
@@ -28,7 +27,6 @@ export default class App extends Component {
   }
 
    removeContact = (contact) => {
-     console.log(1);
      // where the id is not equal to id clicked
      this.setState(currentState => ({
        // loop through the contacts array, then each id of the state
