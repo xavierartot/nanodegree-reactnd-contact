@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export default class ListContacts extends Component {
   // types inside a class, e.g: replace "this.propTypes" by "static propTypes"
@@ -16,6 +17,9 @@ export default class ListContacts extends Component {
       query: e.trim(),
     }));
   }
+  clearQuery = () => {
+   this.updateQuery('');
+  }
   render() {
     //destructure
     const {contacts, onDeleteContact} = this.props;
@@ -28,6 +32,14 @@ export default class ListContacts extends Component {
         c.name.toLowerCase().includes(query.toLowerCase())
       ));
 
+    const number = showingContacts.length !== contacts.length && (
+      <div className="showing-contacts">
+        <span>
+          Now showing contact {showingContacts.length} of {contacts.length}
+          <button onClick={this.clearQuery} >Show All</button>
+        </span>
+      </div>
+    );
     return (
       <div className="list-contacts">
         <div className="list-contacts-top">
@@ -38,7 +50,13 @@ export default class ListContacts extends Component {
             value={query}
             onChange={event => this.updateQuery(event.target.value)}
           />
+          <Link 
+            to="/create"
+            className='add-contact'
+          >add contact
+          </Link>
         </div>
+        <p className="num">{number}</p>
         <ol className="contact-list">
           {
           showingContacts.map(element =>
